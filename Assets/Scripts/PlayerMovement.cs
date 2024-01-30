@@ -19,10 +19,13 @@ public class PlayerMovement : MonoBehaviour
     protected float JumpForce = 10;
 
 
-    public Rigidbody playerRigidBody;
+    protected Rigidbody playerRigidBody;
+    protected Animator Animator;
+
     void Start()
     {
-        
+        playerRigidBody = GetComponent<Rigidbody>();
+        Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,11 +45,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump()
     {
-        print("WAA");
+        //Lägg till Hang Time I luften, Fire medans man åker uppåt stoppar en från att åka högre
         playerRigidBody.AddForce(Vector2.up * JumpForce, ForceMode.Impulse);
     }
     public void OnMovement()
     {
+        // Långsamare när man strafear eller går bakåt.
         MoveDirection = transform.forward * verticalMovement + transform.right * horizontalMovement;
         playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
     }
