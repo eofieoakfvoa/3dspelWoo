@@ -26,23 +26,17 @@ public class CameraScript : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse Y") * _Sensitivity;
         float mouseY = Input.GetAxis("Mouse X") * _Sensitivity;
 
-
+        //Fixa så att karaktären blir transparent till slut desto närmare den är cameran/väggen
         if (Physics.Linecast(transform.position, Player.position, groundLayer))
         {
             DistancefromTarget = 1;
-            print("hit2");
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out RaycastHit hitInfo, 3, groundLayer))
         {
-            if (hitInfo.distance < 1)
+            if (hitInfo.distance < 1 && DistancefromTarget > 1)
             {
-                if (DistancefromTarget > 1)
-                {
                 DistancefromTarget -=0.1f;
-                }
-
             }
-            Debug.Log("Did Hit");
         }
         else
         {
