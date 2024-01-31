@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         MoveDirection = transform.forward * verticalMovement + transform.right * horizontalMovement;
         playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
 
-        Vector3 flatVelocity = new Vector3(playerRigidBody.velocity.x, 0f, playerRigidBody.velocity.z);
+        Vector3 flatVelocity = new(playerRigidBody.velocity.x, 0f, playerRigidBody.velocity.z);
         if (flatVelocity.magnitude > movementSpeed)
         {
             Vector3 limitedVelocty = flatVelocity.normalized * movementSpeed;

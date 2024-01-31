@@ -21,24 +21,39 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
-        if (Physics.OverlapBox(transform.position, new Vector3(groundRadius, 0.3f, groundRadius), Quaternion.identity, groundLayer).Length > 0)
-        {
-            DistancefromTarget-= 0.1f;
-        }
-        else
-        {
-            if (DistancefromTarget <= 3)
-            {
-                DistancefromTarget+= 0.1f;
-            }
-            print("notHit");
-
-        }
         Transform Player = GameObject.FindGameObjectWithTag("Player").transform;  
         _Focus.position = new Vector3(Player.position.x, Player.position.y + 1  , Player.position.z); 
         float mouseX = Input.GetAxis("Mouse Y") * _Sensitivity;
         float mouseY = Input.GetAxis("Mouse X") * _Sensitivity;
-        
+
+
+        if (Physics.Linecast(transform.position, Player.position, groundLayer))
+        {
+            DistancefromTarget = 1;
+            print("hit2");
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out RaycastHit hitInfo, 3, groundLayer))
+        {
+            if (hitInfo.distance < 1)
+            {
+                if (DistancefromTarget > 1)
+                {
+                DistancefromTarget -=0.1f;
+                }
+
+            }
+            Debug.Log("Did Hit");
+        }
+        else
+        {
+            if (DistancefromTarget < 3)
+            {
+                DistancefromTarget +=0.1f;
+            }
+        }
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * 10, Color.yellow);
+
+
         _y += mouseY;
         _x += mouseX;
         _x = Mathf.Clamp(_x, -40, 40);
