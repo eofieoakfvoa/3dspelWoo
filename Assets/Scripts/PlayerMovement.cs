@@ -12,17 +12,15 @@ public class PlayerMovement : MonoBehaviour
     protected float horizontalMovement;
     protected float verticalMovement;
     private Vector3 MoveDirection;
-    private int StepUpHeight;
+    private int stepUpHeight;
 
 
-    [SerializeField]
-    Transform groundChecker;
+    [SerializeField] Transform groundChecker;
 
-    [SerializeField]
-    float groundRadius = 1f;
+    [SerializeField] float groundRadius = 1f;
 
-    [SerializeField]
-    LayerMask groundLayer;    
+    [SerializeField] LayerMask groundLayer;
+
     protected float airHangTime;
     protected float JumpForce = 10;
 
@@ -36,12 +34,11 @@ public class PlayerMovement : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
         //bool isGrounded = Physics2D.OverlapBox(groundChecker.position, new Vector2(3, groundRadius), 0, groundLayer);
-        if (Physics.OverlapBox(groundChecker.position, new Vector3(groundRadius, 0.1f , groundRadius), Quaternion.identity, groundLayer).Length > 0)
+        if (Physics.OverlapBox(groundChecker.position, new Vector3(groundRadius, 0.1f, groundRadius), Quaternion.identity, groundLayer).Length > 0)
         {
             isGrounded = true;
             playerRigidBody.drag = 0.5f;
@@ -70,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Lägg till Hang Time I luften, Fire medans man åker uppåt stoppar en från att åka högre
         playerRigidBody.AddForce(Vector2.up * JumpForce, ForceMode.Impulse);
+        
     }
     private void OnMovement()
     {
@@ -88,10 +86,10 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
-            private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(groundChecker.position, new Vector3(groundRadius, 0.1f , groundRadius));
-        }
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(groundChecker.position, new Vector3(groundRadius, 0.1f, groundRadius));
+    }
+
 }
