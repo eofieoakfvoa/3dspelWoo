@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
             playerRigidBody.drag = 0f;
         }
-        print(isGrounded);
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
 
