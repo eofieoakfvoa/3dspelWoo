@@ -8,6 +8,10 @@ using UnityEngine;
 public class WeaponAttatchment : MonoBehaviour
 {
     // Ta in vapnet och person, Försök hitta Handle, och Hand, Beroende på hur många som ska attachas 1 eller 2 ksk fler?, Handles "Up" Bör vara vart fingrarna ska vara och dens down ska vara där palm ska vara (jag hoppas). 
+    
+    
+    //rengör/finslipa koden + gör så att man kan ha mer en 2 vapen
+    
     [SerializeField] GameObject Target;
     [SerializeField] GameObject WeaponPrefab;
     [SerializeField] int Amount;

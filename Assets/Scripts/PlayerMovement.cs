@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     [Header("Movement Variables")]
     [SerializeField] private int MovementMode;
+    [SerializeField] GameObject Camera;
     protected int movementSpeed = 10;
     protected float horizontalMovement;
     protected float verticalMovement;
@@ -97,8 +98,19 @@ public class PlayerMovement : MonoBehaviour
         }
         //Mode två ska vara att cameran har ingen påvärkan på movementen, förns man klickar på höger klick och då blir W hållet där man kollar
         if (MovementMode == 2)
-        {
+        {            
+            print(Camera.transform.rotation.eulerAngles.y);
             
+            playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
+            MoveDirection = Vector3.forward * verticalMovement + Vector3.right * horizontalMovement;
+            transform.rotation = Quaternion.LookRotation(MoveDirection.normalized);
+
+            Vector3 flatVelocity = new(playerRigidBody.velocity.x, 0f, playerRigidBody.velocity.z);
+            if (flatVelocity.magnitude > movementSpeed)
+            {
+                Vector3 limitedVelocty = flatVelocity.normalized * movementSpeed;
+                playerRigidBody.velocity = new Vector3(limitedVelocty.x, playerRigidBody.velocity.y, limitedVelocty.z);
+            }
         }
     }
     private void OnFire()
