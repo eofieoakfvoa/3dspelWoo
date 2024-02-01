@@ -11,11 +11,19 @@ public class WeaponAttatchment : MonoBehaviour
     [SerializeField] GameObject Target;
     [SerializeField] GameObject WeaponPrefab;
     [SerializeField] int Amount;
+    [SerializeField] bool testfunction;
+    List<GameObject> CurrentWeapons = new();
     List<Transform> Hands = new();
+    List<string> AvailableHands = new()
+    {
+        "L",
+        "R"
+    };
     GameObject Handle;
     GameObject Weapon;
     void Start()
     {
+
         try
         {
             if (Hands.Count == 0)
@@ -24,36 +32,89 @@ public class WeaponAttatchment : MonoBehaviour
                 {
                     if (child.gameObject.name == "palm.R" || child.gameObject.name == "palm.L")
                     {
-                        print(child.gameObject.name);
                         Hands.Add(child);
                     }
                 }
             }
-            print(Hands.Count);
-            Weapon = Instantiate(WeaponPrefab);
-            Handle = Weapon.transform.Find("Handle").gameObject;
-            Weapon.transform.parent = Hands[0];
-            
-            //GameObject Hand =  Target.transform.Find("ORG-palm.02.R").gameObject;
+
+
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             print(e);
         }
     }
     void Update()
     {
-        
-        try
+        if (CurrentWeapons.Count != 0)
         {
-            //gör detta för att offset mellan handle och hand alltid ska vara 0,0,0
-            Vector3 distance = Hands[0].position - Handle.transform.position;
-            Weapon.transform.position += distance;
-            print(distance);
-        }
-        catch
-        {
+            try
+            {
+                foreach (GameObject weapons in CurrentWeapons)
+                {
+                    if (weapons.name.Contains(".L"))
+                    {
+                        Vector3 distance = Hands[0].position - weapons.transform.Find("Handle").transform.position;
+                        weapons.transform.position += distance;
+                    }
+                    if (weapons.name.Contains(".R"))
+                    {
+                        Vector3 distance = Hands[1].position - weapons.transform.Find("Handle").transform.position;
+                        weapons.transform.position += distance;
+                    }
+                }
+                //gör detta för att offset mellan handle och hand alltid ska vara 0,0,0
+            }
+            catch
+            {
 
+            }
         }
+        if (testfunction == true)
+        {
+            AttachWeapon();
+            testfunction = false;
+        }
+    }
+    public void AttachWeapon()
+    {
+        foreach (GameObject weapon in CurrentWeapons)
+        {
+            //weaponname - weaponname = L / R sen använd det istället
+            if (weapon.name.Contains(".L"))
+            {
+                AvailableHands.Add("L");
+            } 
+            if (weapon.name.Contains(".R"))
+            {
+                AvailableHands.Add("R");
+            } 
+            CurrentWeapons.Remove(weapon);
+            Destroy(weapon);
+        }
+
+        for (int i = 0; i < Amount; i++)
+        {            
+            Weapon = Instantiate(WeaponPrefab);
+            Handle = Weapon.transform.Find("Handle").gameObject;
+            if (AvailableHands.Count != 0)
+            {
+                if (AvailableHands[0].Contains("L"))
+                {
+                    Weapon.name += ".L";
+                    Weapon.transform.parent = Hands[0];
+                    AvailableHands.Remove("L");
+                }
+                else
+                {
+                    Weapon.name += ".R";
+                    Weapon.transform.parent = Hands[1];
+                    AvailableHands.Remove("R");
+                }
+            }
+            
+            CurrentWeapons.Add(Weapon);
+        }
+
     }
 }
