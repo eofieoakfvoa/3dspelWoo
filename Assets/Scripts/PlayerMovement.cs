@@ -101,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
             forwardDirection.y = 0;
             rightDirection = mainCamera.transform.right;
             rightDirection.y = 0;
+            MoveDirection = forwardDirection * verticalMovement + rightDirection * horizontalMovement;
             if (horizontalMovement != 0 || verticalMovement != 0)
             {
                 transform.rotation = Quaternion.LookRotation(MoveDirection.normalized);
@@ -111,7 +112,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        MoveDirection = forwardDirection * verticalMovement + rightDirection * horizontalMovement;
     }
     private void OnFire()
     {
