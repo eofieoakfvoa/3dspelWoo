@@ -76,12 +76,13 @@ public class WeaponAttatchment : MonoBehaviour
         }
         if (testfunction == true)
         {
-            AttachWeapon();
+            AttachWeapon(WeaponPrefab);
             testfunction = false;
         }
     }
-    public void AttachWeapon()
+    public void AttachWeapon(GameObject WeaponToChangeToo)
     {
+        WeaponPrefab = WeaponToChangeToo;
         foreach (GameObject weapon in CurrentWeapons)
         {
             //weaponname - weaponname = L / R sen använd det istället
