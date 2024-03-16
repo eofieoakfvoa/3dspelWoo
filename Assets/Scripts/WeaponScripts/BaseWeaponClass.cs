@@ -8,6 +8,6 @@ public class WeaponClass
     public virtual void LeftClickAction(){}
     public virtual void RightClickAction(){}
 
-    private int _Damage;
+    protected float _Damage;
 
 }

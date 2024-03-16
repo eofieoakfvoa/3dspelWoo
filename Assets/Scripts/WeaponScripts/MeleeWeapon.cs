@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeapon : MonoBehaviour
+public class MeleeWeapon : WeaponClass
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    public float Damage
     {
-        
+        get { return _Damage; }
+        set { _Damage = value; }
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void LeftClickAction()
     {
-        
+        Debug.Log("Left Click");
+    }
+    public override void RightClickAction()
+    {
+        Debug.Log("Right Click");
     }
 }
