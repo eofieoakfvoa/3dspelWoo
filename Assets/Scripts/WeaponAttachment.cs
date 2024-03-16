@@ -8,40 +8,24 @@ using UnityEngine;
 public class WeaponAttatchment : MonoBehaviour
 {
     // Ta in vapnet och person, Försök hitta Handle, och Hand, Beroende på hur många som ska attachas 1 eller 2 ksk fler?, Handles "Up" Bör vara vart fingrarna ska vara och dens down ska vara där palm ska vara (jag hoppas). 
-    
-    
-    //rengör/finslipa koden + gör så att man kan ha mer en 2 vapen
-    
+
+
+    //gör så att man kan ha mer en 2 vapen
+    //Current bugs, Ifall karaktären är faced ett annat hål en hållet som vapnena är skapad när de blir assigned så blir det inte en initial rotation, och därför är de konstant ungefär 0-90 grader off
     [SerializeField] GameObject Target;
-    [SerializeField] GameObject WeaponPrefab;
-    [SerializeField] int Amount;
-    [SerializeField] bool testfunction;
-    List<GameObject> CurrentWeapons = new();
+    [SerializeField] GameObject weaponPrefab;
+    [SerializeField] int amountOfWeapons;
+    [SerializeField] bool testfunction; // tabort sen, just nu används för att snabbt ge vapen med SerializeField
+    List<GameObject> currentWeapons = new();
     List<Transform> Hands = new();
-    List<string> AvailableHands = new()
-    {
-        "L",
-        "R"
-    };
-    GameObject Handle;
-    GameObject Weapon;
+    List<string> availableHands = new() { "L", "R" };
+
     void Start()
     {
 
         try
         {
-            if (Hands.Count == 0)
-            {
-                foreach (Transform child in Target.transform.GetComponentsInChildren<Transform>())
-                {
-                    if (child.gameObject.name == "palm.R" || child.gameObject.name == "palm.L")
-                    {
-                        Hands.Add(child);
-                    }
-                }
-            }
-
-
+            GetHands();
         }
         catch (Exception e)
         {
@@ -50,76 +34,84 @@ public class WeaponAttatchment : MonoBehaviour
     }
     void Update()
     {
-        if (CurrentWeapons.Count != 0)
-        {
-            try
-            {
-                foreach (GameObject weapons in CurrentWeapons)
-                {
-                    if (weapons.name.Contains(".L"))
-                    {
-                        Vector3 distance = Hands[0].position - weapons.transform.Find("Handle").transform.position;
-                        weapons.transform.position += distance;
-                    }
-                    if (weapons.name.Contains(".R"))
-                    {
-                        Vector3 distance = Hands[1].position - weapons.transform.Find("Handle").transform.position;
-                        weapons.transform.position += distance;
-                    }
-                }
-                //gör detta för att offset mellan handle och hand alltid ska vara 0,0,0
-            }
-            catch
-            {
-
-            }
-        }
+        UpdateWeaponPosition();
         if (testfunction == true)
         {
-            AttachWeapon(WeaponPrefab);
+            AttachWeapon(weaponPrefab);
             testfunction = false;
         }
     }
-    public void AttachWeapon(GameObject WeaponToChangeToo)
-    {
-        WeaponPrefab = WeaponToChangeToo;
-        foreach (GameObject weapon in CurrentWeapons)
-        {
-            //weaponname - weaponname = L / R sen använd det istället
-            if (weapon.name.Contains(".L"))
-            {
-                AvailableHands.Add("L");
-            } 
-            if (weapon.name.Contains(".R"))
-            {
-                AvailableHands.Add("R");
-            } 
-            CurrentWeapons.Remove(weapon);
-            Destroy(weapon);
-        }
 
-        for (int i = 0; i < Amount; i++)
-        {            
-            Weapon = Instantiate(WeaponPrefab);
-            Handle = Weapon.transform.Find("Handle").gameObject;
-            if (AvailableHands.Count != 0)
+    private void GetHands()
+    {
+        if (Hands.Count == 0)
+        {
+            foreach (Transform child in Target.transform.GetComponentsInChildren<Transform>())
             {
-                if (AvailableHands[0].Contains("L"))
+                if (child.gameObject.name == "palm.R" || child.gameObject.name == "palm.L")
                 {
-                    Weapon.name += ".L";
-                    Weapon.transform.parent = Hands[0];
-                    AvailableHands.Remove("L");
-                }
-                else
-                {
-                    Weapon.name += ".R";
-                    Weapon.transform.parent = Hands[1];
-                    AvailableHands.Remove("R");
+                    Hands.Add(child);
                 }
             }
-            
-            CurrentWeapons.Add(Weapon);
+        }
+    }
+
+
+    public void UpdateWeaponPosition()
+    {
+        //gör detta för att offset mellan handle och hand alltid ska vara 0,0,0
+        //Annars följer den inte med i animationer.
+
+        foreach (GameObject weapons in currentWeapons)
+        {
+            if (weapons.name.Contains(".L"))
+            {
+                Vector3 distance = Hands[0].position - weapons.transform.Find("Handle").transform.position;
+                weapons.transform.position += distance;
+            }
+            else if (weapons.name.Contains(".R"))
+            {
+                Vector3 distance = Hands[1].position - weapons.transform.Find("Handle").transform.position;
+                weapons.transform.position += distance;
+            }
+        }
+    }
+
+    public void AttachWeapon(GameObject WeaponToChangeToo)
+    {
+        weaponPrefab = WeaponToChangeToo;
+        ClearWeapons();
+
+        for (int i = 0; i < amountOfWeapons; i++)
+        {
+            GameObject newWeapon = Instantiate(weaponPrefab);
+            Transform handle = newWeapon.transform.Find("Handle");
+
+            AssignToHand(newWeapon);
+            currentWeapons.Add(newWeapon);
         }
 
+    }
+
+    private void AssignToHand(GameObject weapon)
+    {
+        string handToUse = availableHands[0];
+        availableHands.RemoveAt(0);
+        weapon.name += "." + handToUse;
+        //condition ? consequent : alternative = Ternary expression, ifall en condition är san så använder den den första annars den andra
+        //som i detta fall betyder ifall HandToUse = 1 så använder den hand[0] och eftersom det kan vara L eller R, så är det basically en else där efter, skulle inte fungera ifall man hade 3 händer
+        //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
+        weapon.transform.parent = Hands[handToUse == "L" ? 0 : 1];
+    }
+    public void ClearWeapons()
+    {
+        foreach (GameObject weapon in currentWeapons)
+        {
+            Destroy(weapon);
+        }
+        currentWeapons.Clear();
+        availableHands.Clear();
+        availableHands.Add("L");
+        availableHands.Add("R");
     }
 }

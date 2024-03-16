@@ -9,9 +9,11 @@ public class ChangeWeapon : MonoBehaviour
     [SerializeField] GameObject Weapon1;
     [SerializeField] GameObject Weapon2;
     private Vector3 PreviousMousePosition;
+    private WeaponClass weaponClass1;
+    private WeaponClass weaponClass2;
     void Start()
     {
-        
+        weaponClass1 = Weapon1.GetComponent<WeaponClass>();
     }
 
     // Update is called once per frame
@@ -25,10 +27,12 @@ public class ChangeWeapon : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.C))
         {
             Vector3 mousePosChange = Input.mousePosition - PreviousMousePosition;
-            print(mousePosChange);
             if (mousePosChange.x > 0)
             {
                 AttachmentScript.AttachWeapon(Weapon1);
+                // print(Weapon1.GetComponent<WeaponClass>());
+                // print(weaponClass);
+                weaponClass1.OnEquip(weaponClass1);
             }
             else if (mousePosChange.x < 0)
             {
