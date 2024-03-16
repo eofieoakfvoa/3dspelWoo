@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeapon : WeaponClass
+public class Chakram_WeaponScript : WeaponClass
 {
-    //! Ta bort denna fil tror jag?, eftersom vapnena är så annurlunda så hjälper inte detta.
     [SerializeField]
     public float Damage
     {

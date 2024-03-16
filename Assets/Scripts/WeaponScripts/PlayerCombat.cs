@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    private WeaponClass _Weapon;
+    public WeaponClass Weapon;
     // ! lägg de här i en PlayerController
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {            
-            _Weapon.LeftClickAction();
+            Weapon.LeftClickAction();
         }
         if (Input.GetButtonDown("Fire2"))
         {            
-            _Weapon.RightClickAction();
+            Weapon.RightClickAction();
         }
     }
 

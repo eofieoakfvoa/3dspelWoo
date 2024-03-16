@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class WeaponClass
 {
+    protected float _Damage;
+    private PlayerCombat playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
     //Since the game is using multiple weapons that vary from Melee to Ranged, I have implemented a polymorphism way, where the weapon will implement their own code using the Melee and Ranged Script
     public virtual void LeftClickAction(){}
     public virtual void RightClickAction(){}
-
-    protected float _Damage;
+    public void OnEquip()
+    {
+        //playerCombat.Weapon; 
+    }
 
 }
