@@ -33,13 +33,9 @@ public class ChangeWeapon : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             if (mousePosChange.x > 200)
             {
-                print("Weapon1");
+
+                AttachmentScript.AttachWeapon(Weapon1, weaponClass1);
                 
-                
-                //AttachmentScript.AttachWeapon(Weapon1);
-                // print(Weapon1.GetComponent<WeaponClass>());
-                // print(weaponClass);
-                //weaponClass1.OnEquip(weaponClass1);
             }
             else if (mousePosChange.x < 200)
             {

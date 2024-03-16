@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Composites;
 public class WeaponClass : MonoBehaviour
 {
     // * lägg till error catching
-    private PlayerCombat playerCombat;
+    public PlayerCombat playerCombat;
     protected float _Damage;
     public GameObject player;
     void Awake()
@@ -21,17 +21,13 @@ public class WeaponClass : MonoBehaviour
         
         //playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
     }
-    void Update()
-    {
-        print(playerCombat);
-    }
     //Since the game is using multiple weapons that vary from Melee to Ranged, I have implemented a polymorphism way, where the weapon will implement their own code using the Melee and Ranged Script
     public virtual void LeftClickAction(){}
     public virtual void RightClickAction(){}
     public void OnEquip(WeaponClass Weapon)
     {
 
-        print(playerCombat);
+        playerCombat.Weapon = Weapon;
 
     }
 

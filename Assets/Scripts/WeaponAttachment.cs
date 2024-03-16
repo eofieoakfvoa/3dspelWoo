@@ -12,6 +12,7 @@ public class WeaponAttachment : MonoBehaviour
 
     //gör så att man kan ha mer en 2 vapen
     //Current bugs, Ifall karaktären är faced ett annat hål en hållet som vapnena är skapad när de blir assigned så blir det inte en initial rotation, och därför är de konstant ungefär 0-90 grader off
+    //Ifall jag pallar ta bort SerializeField och bara gör den hitta "Player" Tagen sen sett gameobject i start()
     [SerializeField] GameObject Target;
     [SerializeField] GameObject weaponPrefab;
     [SerializeField] int amountOfWeapons;
@@ -22,14 +23,14 @@ public class WeaponAttachment : MonoBehaviour
 
     void Start()
     {
-        GetHands(); //Ifall Gethands inte fungerar betyder det att personen inte har händer därför behövs det ingen error catching? hoppas jag lol
+        GetHands(); //Ifall Gethands inte fungerar betyder det att personen inte har händer därför behövs det ingen error catching? hoppas jag lol, eller så existerar inte Han.
     }
     void Update()
     {
         UpdateWeaponPosition();
         if (testfunction == true)
         {
-            AttachWeapon(weaponPrefab);
+            AttachWeapon(weaponPrefab, weaponPrefab.GetComponent<WeaponClass>());
             testfunction = false;
         }
     }
@@ -53,7 +54,7 @@ public class WeaponAttachment : MonoBehaviour
     {
         //gör detta för att offset mellan handle och hand alltid ska vara 0,0,0
         //Annars följer den inte med i animationer.
-
+        //Måste dock hitta ett sätt så jag inte behöver uppdatera positionen hela tiden
         foreach (GameObject weapons in currentWeapons)
         {
             if (weapons.name.Contains(".L"))
@@ -69,20 +70,20 @@ public class WeaponAttachment : MonoBehaviour
         }
     }
 
-    public void AttachWeapon(GameObject WeaponToChangeToo)
+    public void AttachWeapon(GameObject WeaponToChangeToo, WeaponClass weaponClass)
     {
         weaponPrefab = WeaponToChangeToo;
         ClearWeapons();
-
+        GameObject newWeapon;
         for (int i = 0; i < amountOfWeapons; i++)
         {
-            GameObject newWeapon = Instantiate(weaponPrefab);
+            newWeapon = Instantiate(weaponPrefab);
             Transform handle = newWeapon.transform.Find("Handle");
 
+            newWeapon.GetComponent<WeaponClass>().OnEquip(weaponClass);
             AssignToHand(newWeapon);
             currentWeapons.Add(newWeapon);
         }
-
     }
 
     private void AssignToHand(GameObject weapon)
