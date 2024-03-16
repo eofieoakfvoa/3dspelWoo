@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChangeWeapon : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] WeaponAttatchment AttachmentScript;
+    [SerializeField] WeaponAttachment AttachmentScript;
     [SerializeField] GameObject Weapon1;
     [SerializeField] GameObject Weapon2;
     private Vector3 PreviousMousePosition;
@@ -19,24 +19,32 @@ public class ChangeWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // * lägg till en Debounce
         if (Input.GetKeyDown(KeyCode.C))
         {
             //öppna Weapon Choice UI
-                PreviousMousePosition = Input.mousePosition;
+            PreviousMousePosition = Input.mousePosition;
+            Cursor.lockState = CursorLockMode.Confined;
         }
         if (Input.GetKeyUp(KeyCode.C))
         {
             Vector3 mousePosChange = Input.mousePosition - PreviousMousePosition;
-            if (mousePosChange.x > 0)
+            print(mousePosChange);
+            Cursor.lockState = CursorLockMode.Locked;
+            if (mousePosChange.x > 200)
             {
-                AttachmentScript.AttachWeapon(Weapon1);
+                print("Weapon1");
+                
+                
+                //AttachmentScript.AttachWeapon(Weapon1);
                 // print(Weapon1.GetComponent<WeaponClass>());
                 // print(weaponClass);
-                weaponClass1.OnEquip(weaponClass1);
+                //weaponClass1.OnEquip(weaponClass1);
             }
-            else if (mousePosChange.x < 0)
+            else if (mousePosChange.x < 200)
             {
-                AttachmentScript.AttachWeapon(Weapon2);
+                print("Weapon2");
+                //AttachmentScript.AttachWeapon(Weapon2);
 
             }
         }

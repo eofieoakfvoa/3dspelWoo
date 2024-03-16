@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class WeaponAttatchment : MonoBehaviour
+public class WeaponAttachment : MonoBehaviour
 {
     // Ta in vapnet och person, Försök hitta Handle, och Hand, Beroende på hur många som ska attachas 1 eller 2 ksk fler?, Handles "Up" Bör vara vart fingrarna ska vara och dens down ska vara där palm ska vara (jag hoppas). 
 
@@ -22,15 +22,7 @@ public class WeaponAttatchment : MonoBehaviour
 
     void Start()
     {
-
-        try
-        {
-            GetHands();
-        }
-        catch (Exception e)
-        {
-            print(e);
-        }
+        GetHands(); //Ifall Gethands inte fungerar betyder det att personen inte har händer därför behövs det ingen error catching? hoppas jag lol
     }
     void Update()
     {
@@ -57,7 +49,7 @@ public class WeaponAttatchment : MonoBehaviour
     }
 
 
-    public void UpdateWeaponPosition()
+    private void UpdateWeaponPosition()
     {
         //gör detta för att offset mellan handle och hand alltid ska vara 0,0,0
         //Annars följer den inte med i animationer.
@@ -99,11 +91,11 @@ public class WeaponAttatchment : MonoBehaviour
         availableHands.RemoveAt(0);
         weapon.name += "." + handToUse;
         //condition ? consequent : alternative = Ternary expression, ifall en condition är san så använder den den första annars den andra
-        //som i detta fall betyder ifall HandToUse = 1 så använder den hand[0] och eftersom det kan vara L eller R, så är det basically en else där efter, skulle inte fungera ifall man hade 3 händer
+        //som i detta fall betyder ifall handToUse = 1 så använder den hand[0] och eftersom det kan vara L eller R, så är det basically en else där efter, skulle inte fungera ifall man hade 3 händer
         //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
         weapon.transform.parent = Hands[handToUse == "L" ? 0 : 1];
     }
-    public void ClearWeapons()
+    private void ClearWeapons()
     {
         foreach (GameObject weapon in currentWeapons)
         {
