@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1081460491111400649}
+  - component: {fileID: -550257031344071387}
   m_Layer: 0
   m_Name: RapierWeapon
   m_TagString: Untagged
@@ -116,6 +117,20 @@ Transform:
   - {fileID: 7636943018016417643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &-550257031344071387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013331549892678766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3020e1f0e80744ea644c63e1653560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCombat: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1001 &8360060336294709931
 PrefabInstance:
   m_ObjectHideFlags: 0

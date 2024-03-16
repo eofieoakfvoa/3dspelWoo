@@ -26,9 +26,7 @@ public class WeaponClass : MonoBehaviour
     public virtual void RightClickAction(){}
     public void OnEquip(WeaponClass Weapon)
     {
-
         playerCombat.Weapon = Weapon;
-
     }
 
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// ! Finslipa
 public class ChangeWeapon : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -14,6 +14,7 @@ public class ChangeWeapon : MonoBehaviour
     void Start()
     {
         weaponClass1 = Weapon1.GetComponent<WeaponClass>();
+        weaponClass2 = Weapon2.GetComponent<WeaponClass>();
     }
 
     // Update is called once per frame
@@ -39,8 +40,7 @@ public class ChangeWeapon : MonoBehaviour
             }
             else if (mousePosChange.x < 200)
             {
-                print("Weapon2");
-                //AttachmentScript.AttachWeapon(Weapon2);
+                AttachmentScript.AttachWeapon(Weapon2, weaponClass2);
 
             }
         }
