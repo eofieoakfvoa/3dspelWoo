@@ -5,15 +5,15 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
 
-
     private float _x;
     private float _y;
     [SerializeField] private float _Sensitivity;
     [SerializeField] private Transform _Focus;
     [SerializeField] public float DistancefromTarget;
     [SerializeField] float groundRadius = 1f;
-
     [SerializeField] LayerMask groundLayer;
+
+    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

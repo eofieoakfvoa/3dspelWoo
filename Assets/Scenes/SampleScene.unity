@@ -1327,8 +1327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1203055468}
-  WeaponPrefab: {fileID: 4252921510137420568, guid: 3bd981969bf3f2e4086e6bcf58de3ed4, type: 3}
-  Amount: 1
+  weaponPrefab: {fileID: 0}
+  amountOfWeapons: 1
   testfunction: 0
 --- !u!114 &1203055476
 MonoBehaviour:
@@ -1345,6 +1345,19 @@ MonoBehaviour:
   AttachmentScript: {fileID: 1203055475}
   Weapon1: {fileID: 4252921510137420568, guid: 3bd981969bf3f2e4086e6bcf58de3ed4, type: 3}
   Weapon2: {fileID: 3013331549892678766, guid: 726d4391331f96f43945e970e2bceb98, type: 3}
+--- !u!114 &1203055477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203055468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e768f68cc36bb2c478243fd20704663a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapon: {fileID: 0}
 --- !u!1 &1297741717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,6 +1534,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b8e1f0a63b712d94d9ce137e0f1d79c2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1203055476}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b8e1f0a63b712d94d9ce137e0f1d79c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1203055477}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b8e1f0a63b712d94d9ce137e0f1d79c2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1203055471}
