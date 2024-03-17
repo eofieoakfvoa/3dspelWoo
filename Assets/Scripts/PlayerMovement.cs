@@ -45,19 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-        if (Physics.OverlapBox(groundChecker.position, new Vector3(groundRadius, 0.1f, groundRadius), Quaternion.identity, groundLayer).Length > 0)
-        {
-            isGrounded = true;
-            playerRigidBody.drag = 2f;
-        }
-        else
-        {
-            isGrounded = false;
-            playerRigidBody.drag = 1f;
-        }
-        horizontalMovement = Input.GetAxisRaw("Horizontal");
-        verticalMovement = Input.GetAxisRaw("Vertical");
+        groundCheck();
 
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
@@ -87,10 +75,11 @@ public class PlayerMovement : MonoBehaviour
         //Lägg till Hang Time I luften, Fire medans man åker uppåt stoppar en från att åka högre, bara när man gör en action i luften dock..
         //Gör så den man faller långsamare när man börja närma sig marken, för en mer gracefull landing
         playerRigidBody.AddForce(Vector2.up * JumpForce, ForceMode.Impulse);
-
     }
     private void OnMovement()
     {
+        horizontalMovement = Input.GetAxisRaw("Horizontal");
+        verticalMovement = Input.GetAxisRaw("Vertical");
         playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
         Vector3 forwardDirection = transform.forward;
         Vector3 rightDirection = transform.right;
@@ -113,9 +102,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-    private void OnFire()
+    private void groundCheck()
     {
-
+        if (Physics.OverlapBox(groundChecker.position, new Vector3(groundRadius, 0.1f, groundRadius), Quaternion.identity, groundLayer).Length > 0)
+        {
+            isGrounded = true;
+            playerRigidBody.drag = 2f;
+        }
+        else
+        {
+            isGrounded = false;
+            playerRigidBody.drag = 1f;
+        }
     }
     private void OnDrawGizmos()
     {

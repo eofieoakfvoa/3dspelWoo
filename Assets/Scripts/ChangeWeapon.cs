@@ -38,7 +38,7 @@ public class ChangeWeapon : MonoBehaviour
                 AttachmentScript.AttachWeapon(Weapon1, weaponClass1);
                 
             }
-            else if (mousePosChange.x < 200)
+            else if (mousePosChange.x < -200)
             {
                 AttachmentScript.AttachWeapon(Weapon2, weaponClass2);
 
