@@ -16,8 +16,7 @@ public class PlayerMovement : MonoBehaviour
     protected float horizontalMovement;
     protected float verticalMovement;
     private Vector3 MoveDirection;
-    private int stepUpHeight;
-    private int cameraMode = 1;
+    private int stepUpHeight; 
 
     [Header("Jump Variables")]
     [SerializeField] Transform groundChecker;
@@ -46,29 +45,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         groundCheck();
+        OnMovement();
 
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
             OnJump();
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            cameraMode = 2;
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            cameraMode = 1;
-        }
 
         //ksk istället för att använda dessa så har jag i en animation controller som har olika states, "Running, Walking, Idle, Jumping, Falling" och mer.
         Animator.SetFloat("Speed", playerRigidBody.velocity.magnitude);
         Animator.SetBool("IsGrounded", isGrounded);
     }
-    void FixedUpdate()
-    {
-        OnMovement();
-    }
+
 
     private void OnJump()
     {
@@ -78,28 +67,30 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnMovement()
     {
+        //  Get the Horizontal and Vertical input
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
-        playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
-        Vector3 forwardDirection = transform.forward;
-        Vector3 rightDirection = transform.right;
 
-        if (cameraMode == 1)
+
+        //Get the Forward and Right looking direction then multiply it with the input
+        Vector3 forwardDirection = mainCamera.transform.forward;
+        Vector3 rightDirection = mainCamera.transform.right;
+        forwardDirection.y = 0;
+        rightDirection.y = 0;
+        MoveDirection = forwardDirection * verticalMovement + rightDirection * horizontalMovement;
+        
+        //Add the force
+        playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
+
+        if (horizontalMovement != 0 || verticalMovement != 0)
         {
-            forwardDirection = mainCamera.transform.forward;
-            forwardDirection.y = 0;
-            rightDirection = mainCamera.transform.right;
-            rightDirection.y = 0;
-            MoveDirection = forwardDirection * verticalMovement + rightDirection * horizontalMovement;
-            if (horizontalMovement != 0 || verticalMovement != 0)
-            {
-                transform.rotation = Quaternion.LookRotation(MoveDirection.normalized);
-            }
-            else if (isGrounded)
-            {
-                playerRigidBody.velocity = Vector3.zero;
-            }
+            transform.rotation = Quaternion.LookRotation(MoveDirection.normalized);
         }
+        else if (isGrounded) // Stop the player from gliding 
+        {
+            playerRigidBody.velocity = Vector3.zero;
+        }
+
 
     }
     private void groundCheck()
@@ -112,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isGrounded = false;
-            playerRigidBody.drag = 1f;
+            playerRigidBody.drag = 1.8f; // make the player faster in air
         }
     }
     private void OnDrawGizmos()
