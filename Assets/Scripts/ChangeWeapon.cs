@@ -4,7 +4,7 @@ using UnityEngine;
 // ! Finslipa
 public class ChangeWeapon : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //lägg detta i en Character controller script ocksÅ?
     [SerializeField] WeaponAttachment AttachmentScript;
     [SerializeField] GameObject Weapon1;
     [SerializeField] GameObject Weapon2;
@@ -17,7 +17,6 @@ public class ChangeWeapon : MonoBehaviour
         weaponClass2 = Weapon2.GetComponent<WeaponClass>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // * lägg till en Debounce

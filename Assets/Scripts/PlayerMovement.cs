@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         //Add the force
         playerRigidBody.AddForce(movementSpeed * Time.deltaTime * MoveDirection.normalized, ForceMode.Impulse);
 
+        
         if (horizontalMovement != 0 || verticalMovement != 0)
         {
             transform.rotation = Quaternion.LookRotation(MoveDirection.normalized);

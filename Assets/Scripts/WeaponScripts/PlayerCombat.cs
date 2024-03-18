@@ -6,12 +6,12 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public WeaponClass Weapon;
-    // ! lägg de här i en PlayerController
+    // ! lägg de här i en PlayerController script
     void Update()
     {
         if (Weapon != null)
         {
-            
+
             if (Input.GetButtonDown("Fire1"))
             {            
                 Weapon.LeftClickAction();

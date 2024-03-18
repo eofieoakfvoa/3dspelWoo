@@ -93,7 +93,6 @@ public class WeaponAttachment : MonoBehaviour
         weapon.name += "." + handToUse;
         //condition ? consequent : alternative = Ternary expression, ifall en condition är san så använder den den första annars den andra
         //som i detta fall betyder ifall handToUse = 1 så använder den hand[0] och eftersom det kan vara L eller R, så är det basically en else där efter, skulle inte fungera ifall man hade 3 händer
-        //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
         weapon.transform.parent = Hands[handToUse == "L" ? 0 : 1];
     }
     private void ClearWeapons()
