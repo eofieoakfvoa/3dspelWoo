@@ -23,6 +23,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (damageToAdd > 0)
         {
+            print("Took Damage");
             currentHealth -= damageToAdd;
             if (currentHealth <= 0)
             {
