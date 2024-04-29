@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class DealingDamageObject : MonoBehaviour
 {
+    [SerializeField] private float Integer;
+    [SerializeField] HealthSystem.Type type;
     void OnCollisionEnter(Collision collision)
     {
         GameObject collidedGameObject = collision.gameObject;
         if (collidedGameObject.CompareTag("Player"))
         {
-            collidedGameObject.GetComponent<HealthSystem>().TakeHealth(0.01f);
+            collidedGameObject.GetComponent<HealthSystem>().ChangeHealth(type, Integer);
         }
     }
 }

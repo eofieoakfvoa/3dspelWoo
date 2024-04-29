@@ -19,11 +19,26 @@ public class HealthSystem : MonoBehaviour
             currentHealth = 1;
         }
     }
-    public void TakeHealth(float damageToAdd) //Function to Take Health // Dealing Damage
+    public enum Type //vet inte vad jag ska kalla dehä
+    {
+        Health = 1,
+        Damage
+    }
+    public void ChangeHealth(Type type, float Integer)
+    {
+        if (type == Type.Health)
+        {
+            GiveHealth(Integer);
+        }
+        else
+        {
+            TakeHealth(Integer);
+        }
+    }
+    private void TakeHealth(float damageToAdd) //Function to Take Health // Dealing Damage
     {
         if (damageToAdd > 0)
         {
-            print("Took Damage");
             currentHealth -= damageToAdd;
             if (currentHealth <= 0)
             {
@@ -35,7 +50,7 @@ public class HealthSystem : MonoBehaviour
             print("Took 0 or negative damage");
         }
     }
-    public void GiveHealth(float healthToAdd) //Function to Give health // healing
+    private void GiveHealth(float healthToAdd) //Function to Give health // healing
     {
         if (healthToAdd > 0)
         {
