@@ -12,10 +12,12 @@ public class Chakram_WeaponScript : WeaponClass
     }
     public override void LeftClickAction()
     {
-        Debug.Log("Left Click");
+        
     }
     public override void RightClickAction()
     {
+     
         Debug.Log("Right Click");
+
     }
 }
