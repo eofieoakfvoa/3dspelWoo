@@ -8,7 +8,8 @@ public class HoverBoxNPC : MonoBehaviour
     [SerializeField] private Transform hoverBoxCheckerCenter;
     [SerializeField] private float hoverBoxCheckerRadius;
     [SerializeField] GameObject HoverButtonPrefab;
-    [SerializeField] KeyCode Input;
+    [SerializeField] KeyCode KeyInput;
+    [SerializeField] GameObject menuToSetOpen;
     bool playerInRange;
     GameObject? currentObject;
 
@@ -22,7 +23,12 @@ public class HoverBoxNPC : MonoBehaviour
             {
                 currentObject = Instantiate(HoverButtonPrefab);
                 currentObject.transform.position = new Vector3(hoverBoxCheckerCenter.position.x + 0.5f , hoverBoxCheckerCenter.position.y +1, hoverBoxCheckerCenter.position.z -1.5f);
-                
+
+            }
+
+            if (Input.GetKeyDown(KeyInput))
+            {
+                menuToSetOpen.active = true;
             }
         }
         else
