@@ -7,7 +7,7 @@ using UnityEngine.Scripting;
 public class HealthSystem : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
-    private float currentHealth; 
+    private float currentHealth;
     public void Awake()
     {
         if (maxHealth > 0)
@@ -18,6 +18,10 @@ public class HealthSystem : MonoBehaviour
         {
             currentHealth = 1;
         }
+    }
+    public float GetHealth()
+    {
+        return currentHealth;
     }
     public enum Type //vet inte vad jag ska kalla dehä
     {
@@ -71,7 +75,7 @@ public class HealthSystem : MonoBehaviour
         if (maxHealth <= 0)
         {
             maxHealth = 1;
-        } 
+        }
     }
 
 }

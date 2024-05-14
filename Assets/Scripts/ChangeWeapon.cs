@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class ChangeWeapon : MonoBehaviour
     [SerializeField] WeaponAttachment AttachmentScript;
     [SerializeField] GameObject Weapon1;
     [SerializeField] GameObject Weapon2;
+    [SerializeField] GameObject changeWeaponScreen;
     private Vector3 PreviousMousePosition;
     private WeaponClass weaponClass1;
     private WeaponClass weaponClass2;
@@ -25,12 +27,14 @@ public class ChangeWeapon : MonoBehaviour
             //öppna Weapon Choice UI
             PreviousMousePosition = Input.mousePosition;
             Cursor.lockState = CursorLockMode.Confined;
+            changeWeaponScreen.SetActive(true);
         }
         if (Input.GetKeyUp(KeyCode.C))
         {
             Vector3 mousePosChange = Input.mousePosition - PreviousMousePosition;
             print(mousePosChange);
             Cursor.lockState = CursorLockMode.Locked;
+            changeWeaponScreen.SetActive(false);
             if (mousePosChange.x > 200)
             {
 
@@ -41,6 +45,12 @@ public class ChangeWeapon : MonoBehaviour
             {
                 AttachmentScript.AttachWeapon(Weapon2, weaponClass2);
 
+            }
+            else if(mousePosChange.x < Math.Abs(200) && mousePosChange.y < -225)
+            {
+                //unequip logic
+                Debug.Log(mousePosChange);
+                Debug.Log("unequip");
             }
         }
     }
