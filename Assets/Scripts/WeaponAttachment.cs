@@ -80,8 +80,16 @@ public class WeaponAttachment : MonoBehaviour
             newWeapon = Instantiate(weaponPrefab);
             Transform handle = newWeapon.transform.Find("Handle");
 
-            newWeapon.GetComponent<WeaponClass>().OnEquip(weaponClass);
+            try
+            {
+                newWeapon.GetComponent<WeaponClass>().OnEquip(weaponClass);
+            }
+            catch (Exception)
+            {
+                Debug.Log(weaponPrefab + " Does not have a WeaponClass in it");
+            }
             AssignToHand(newWeapon);
+            newWeapon.transform.rotation = Target.transform.rotation;
             currentWeapons.Add(newWeapon);
         }
     }

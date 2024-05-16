@@ -2,22 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chakram_WeaponScript : WeaponClass 
+public class Chakram_WeaponScript : MeleeWeapon 
 {
-    [SerializeField]
-    public float Damage
+    public Chakram_WeaponScript()
     {
-        get { return _Damage; }
-        set { _Damage = value; }
-    }
-    public override void LeftClickAction()
-    {
-        
-    }
-    public override void RightClickAction()
-    {
-     
-        Debug.Log("Right Click");
-
+        ComboAttacks.Add(1);
+        ComboAttacks.Add(2);
     }
 }
