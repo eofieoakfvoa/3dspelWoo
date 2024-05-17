@@ -28,7 +28,7 @@ public class HoverBoxNPC : MonoBehaviour
 
             if (Input.GetKeyDown(KeyInput))
             {
-                menuToSetOpen.active = true;
+                menuToSetOpen.SetActive(true);
             }
         }
         else

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeleeWeapon : WeaponClass
 {
-    
+
+
     [SerializeField]
     public float Damage
     {
@@ -13,7 +15,6 @@ public class MeleeWeapon : WeaponClass
         set { _Damage = value; }
     }
     public GameObject HurtBox;
-    public int ComboLength;
     enum ComboState
     {
         None = 0,
@@ -21,38 +22,42 @@ public class MeleeWeapon : WeaponClass
         Ended
     }
     ComboState CurrentComboState;
-    public List<int> ComboAttacks;
-    private bool Debounce = false;
-    private float BreathingSpaceBetweenAttack;
 
+    protected bool Debounce = false;
+    private float BreathingSpaceBetweenAttack;
+    private Coroutine coroutine;
+
+
+    public int ComboLength;
+    public List<int> ComboAttacks;
+    public int currentIndex = 0;
     public override void LeftClickAction()
     {
         CurrentComboState = ComboState.Current;
         if (!Debounce)
         {
-            for (int i = 0; i < ComboLength; i++)
+            
+
+            if (CurrentComboState == ComboState.Current)
             {
-                if (CurrentComboState == ComboState.Current)
-                {
-                    Debounce = true;
-                    print(ComboAttacks[i]);
-                    CurrentComboState = ComboState.Ended;
-                }
-                if (CurrentComboState == ComboState.Ended)
-                {
-                    Debounce = false;
-                }
+                Debug.Log("Current combo attack: " + ComboAttacks[currentIndex]);
+                CurrentComboState = ComboState.Ended;
+            }
+            if (CurrentComboState == ComboState.Ended)
+            {
+                //start timer
+                Debounce = false;
+            }
+
+            if (currentIndex < ComboAttacks.Count -1)
+            {
+                currentIndex++;
+            }
+            else
+            {
+                currentIndex = 0;
             }
         }
-    }
-
-    IEnumerator CountDown()
-    {
-
-    yield return new WaitForSeconds(1);
-
-    BreathingSpaceBetweenAttack--;
-
     }
 
     public override void RightClickAction()
