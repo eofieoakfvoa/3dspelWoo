@@ -30,8 +30,6 @@ public class UISwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(CurrentlySelected);
-        print("Count is currently " + Count);
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             CurrentlySelected += 1;

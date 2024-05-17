@@ -92,9 +92,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1081460491111400649}
-  - component: {fileID: -550257031344071387}
+  - component: {fileID: -2821000386620768321}
   m_Layer: 0
-  m_Name: RapierWeapon
+  m_Name: TestRapierWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 7636943018016417643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &-550257031344071387
+--- !u!114 &-2821000386620768321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,16 +126,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3013331549892678766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c3020e1f0e80744ea644c63e1653560, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e3a0a79435be694c9b5266ad39abf8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerCombat: {fileID: 0}
   player: {fileID: 0}
   M_ComboAttack:
-  - meleeAttack: {fileID: 0}
+  - meleeAttack: {fileID: 11400000, guid: 87652d2811a6a8c44a7da72703cc5686, type: 2}
+  - meleeAttack: {fileID: 11400000, guid: 4ff4a4c085c2d5944a4cfdf9f80588a4, type: 2}
   HurtBox: {fileID: 0}
   ComboLength: 0
-  ComboAttacks: 
+  ComboAttacks: 00000000
   currentIndex: 0
 --- !u!1001 &8360060336294709931
 PrefabInstance:

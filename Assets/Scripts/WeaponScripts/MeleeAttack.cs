@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+[CreateAssetMenu]
+public class MeleeAttack : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public string Name;
+    [SerializeField] public string Description;
+    [SerializeField] public AnimationClip AttackAnimation;
+    [Serializable]
+    public class WeaponDebuffs
     {
-        
+        public GameObject Origin;
+        public int Chance;
     }
+    [SerializeField] private WeaponDebuffs[] M_Debuffs;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
